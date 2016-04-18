@@ -22,7 +22,7 @@
 
 package io.pusherhx;
 
-import haxe.net.WebSocket;
+import openfl.net.WebSocket;
 import openfl.events.Event;
 import openfl.events.EventDispatcher;
 
@@ -133,18 +133,18 @@ class Pusher extends EventDispatcher
 			pusherURL = pusherOptions.pusherURL;
 		}
 		
-		trace( "pusherURL " + pusherURL );
+		//trace( "pusherURL " + pusherURL );
 		
 		// Initialize websocket
-		websocket = WebSocket.create( pusherURL, ['echo-protocol'], pusherOptions.origin );
-		websocket.onopen = onWSOpen;
-		websocket.onclose = onWSClose;
-		websocket.onerror = onFail;
-		websocket.onmessageString = onWSMessage;
+		websocket = new WebSocket( pusherURL, pusherOptions.origin, 'wskey', false, ['echo-protocol'] );
+		websocket.onOpen.add( onWSOpen );
+		websocket.onClose.add( onWSClose );
+		websocket.onError.add( onFail );
+		websocket.onTextPacket.add( onWSMessage );
 		
 	}
 	
-	function onWSOpen():Void
+	function onWSOpen( v:Dynamic ):Void
 	{	
 		trace("Websocket open");
 		// store status
@@ -157,7 +157,7 @@ class Pusher extends EventDispatcher
 		
 		var pusherEvent:PusherEvent = null;
 		
-		// try to parse new pusher event from websocket message
+		//try to parse new pusher event from websocket message
 		try
 		{
 			pusherEvent = PusherEvent.parse(StringTools.htmlUnescape(msg));
@@ -187,7 +187,7 @@ class Pusher extends EventDispatcher
 		}		
 	}
 	
-	function onWSClose():Void
+	function onWSClose( v:Dynamic ):Void
 	{
 		trace('Websocket closed');
 		
@@ -330,7 +330,7 @@ class Pusher extends EventDispatcher
 		}
 		
 		if(verboseLogging) trace('sending >> [', event.toJSON(), ']');
-		websocket.sendString(event.toJSON());
+		websocket.sendText(event.toJSON());
 	}
 	
 }

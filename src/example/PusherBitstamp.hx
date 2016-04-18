@@ -1,4 +1,4 @@
-package;
+package example;
 
 import haxe.Json;
 import io.pusherhx.events.PusherConnectionStatusEvent;
@@ -27,7 +27,7 @@ class PusherBitstamp {
 	var reconnectTimer:Timer;
 	var pusher:Pusher;
 	
-	public function new() { trace( 'start' );
+	public function new() {
 		initPusher();
 	}
 	
@@ -47,12 +47,12 @@ class PusherBitstamp {
 		
 		// Connect websocket
 		pusher.connect();
-/*		
+		
 		// Reconnect timer
 		reconnectTimer = new Timer(1000, 1);
 		reconnectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, reconnectTimer_TIMER_COMPLETE);
 		reconnectTimer.start();
-*/	}
+	}
 	
 	function reconnectTimer_TIMER_COMPLETE(event:TimerEvent):Void {
 		
@@ -96,8 +96,8 @@ class PusherBitstamp {
 		
 	}
 	
-	function onData( data:Dynamic ):Void {
+	function onData( event:PusherEvent ):Void {
 		
-		trace( data );
+		trace( event.data );
 	}
 }

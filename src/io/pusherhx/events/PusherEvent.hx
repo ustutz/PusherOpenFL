@@ -74,7 +74,7 @@ class PusherEvent extends Event
 		if(data == null)
 			throw 'data cannot be empty';
 		
-		trace( "incoming data: " + data );
+		//trace( "incoming data: " + data );
 			
 		// decode JSON data string to an raw object
 		//var decodedObject = Json.parse( decodeURIComponent(data));
@@ -82,8 +82,9 @@ class PusherEvent extends Event
 		
 		var pusherEvent:PusherEvent = null;
 		
+		
 		// parse "event" property
-		if(decodedObject.hasOwnProperty('event'))
+		if(decodedObject.event != null)
 		{
 			// replace client event name prefix
 			var eventName:String =  decodedObject.event;
@@ -101,7 +102,7 @@ class PusherEvent extends Event
 		}
 		
 		// parse "data" property
-		if(decodedObject.hasOwnProperty('data'))
+		if(decodedObject.data != null)
 		{
 			
 			try
@@ -115,7 +116,7 @@ class PusherEvent extends Event
 		}
 		
 		// parse "channel" property
-		if(decodedObject.hasOwnProperty('channel'))
+		if(decodedObject.channel != null)
 		{
 			pusherEvent.channel = decodedObject.channel;
 		}
