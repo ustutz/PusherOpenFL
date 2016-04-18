@@ -6,4 +6,4 @@ https://github.com/rocketengineio/PusherAS/
 
 Works in Flash, HTML5 and Sys platforms (tested in neko and windows)
 
-Needs tjson and haxe-ws libraries
+Needs tjson, haxe-ws and openfl-websocket libraries
